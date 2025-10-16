@@ -1,6 +1,6 @@
 #!/bin/bash
 
-poetry run python3 src/preprocess.py
+poetry run python3 src/preprocessor.py
 
 
 for model in dcn dcn_v2; do
