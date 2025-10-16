@@ -1,0 +1,38 @@
+# BST 모델 설정 파일
+
+# 모델 하이퍼파라미터
+model:
+  max_seq_len: 20          # 최대 시퀀스 길이
+  d_model: 64             # 모델 차원 (임베딩 차원)
+  n_heads: 8              # 어텐션 헤드 수
+  n_layers: 1             # 트랜스포머 레이어 수
+  d_ff: 256               # 피드포워드 네트워크 차원
+  dropout: 0.2            # 드롭아웃 비율
+  mlp_dims: [1024, 512, 256]  # MLP 레이어 차원들
+
+# 학습 설정
+training:
+  learning_rate: 0.01     # 학습률
+  weight_decay: 1e-5      # 가중치 감쇠
+  batch_size: 256         # 배치 크기
+  num_epochs: 10          # 에포크 수
+  early_stopping_patience: 5  # 조기 종료 patience
+  num_workers: 4          # 데이터 로더 워커 수
+
+# 데이터 설정
+data:
+  min_item_freq: 5        # 최소 아이템 빈도
+  test_size: 0.2          # 검증 데이터 비율
+  random_seed: 42         # 랜덤 시드
+
+# 경로 설정
+paths:
+  data_dir: "input/toss-next-challenge"
+  output_dir: "output"
+  model_name: "bst_model"
+
+# Wandb 설정
+wandb:
+  project: "toss-bst"
+  entity: null
+  tags: ["bst", "transformer", "ctr-prediction"]

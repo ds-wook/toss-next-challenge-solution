@@ -1,0 +1,112 @@
+# Transformer CTR Model Configuration
+# 통합 설정 파일 - 학습과 예측을 모두 관리
+
+# 데이터 설정
+data:
+  path: input/toss-next-challenge
+  config_path: config/data/dataset.yaml
+  store_path: config/store/features.yaml
+  use_sample: false
+  sample_size: 10000
+
+  # 샘플링 설정 (FM/LightGBM과 동일한 방식)
+  use_sampling: true          # Negative sampling 활성화 여부
+  sampling_ratio: 0.5         # 음성 샘플의 비율 (0.0-1.0)
+  seed: 42                    # 재현 가능한 샘플링을 위한 시드
+
+  # 수치 특징 전처리 설정
+  preprocessing:
+    use_quantile_clipping: true    # 분위 기반 클리핑 활성화
+    quantile_lower: 0.01           # 하위 분위 (1%)
+    quantile_upper: 0.99           # 상위 분위 (99%)
+    use_log_transform: false       # log1p 변환 활성화
+    log_transform_cols: []        # log 변환할 컬럼 목록
+
+# 모델 설정
+model:
+  emb_dim: 32                    # 증가된 임베딩 차원
+  transformer_dim: 128           # 증가된 트랜스포머 차원
+  transformer_heads: 8           # 헤드 수 유지
+  transformer_layers: 3         # 레이어 수 증가
+  hidden_units: [512, 256, 128] # 히든 유닛 유지
+  dropout: [0.1, 0.2, 0.3]      # 드롭아웃 유지
+
+# 학습 설정
+train:
+  batch_size: 256
+  epochs: 5                       # 증가된 에포크 수
+  learning_rate: 0.0005          # 감소된 학습률
+  weight_decay: 0.0001
+  n_folds: 5                     # 증가된 폴드 수
+  seed: 42
+
+  # 학습률 스케줄러 설정
+  scheduler: warmup_cosine  # 옵션: warmup_cosine, warmup_linear, reduce_on_plateau
+
+  # 스케줄러 파라미터
+  scheduler_params:
+    # Warmup 파라미터
+    warmup_epochs: 2  # 전체 epoch의 10% 또는 최소 1
+    min_lr: 1e-6
+    warmup_start_lr: 1e-7
+
+    # ReduceLROnPlateau 파라미터 (scheduler가 reduce_on_plateau일 때 사용)
+    factor: 0.7
+    patience: 3
+    threshold: 1e-4
+
+  # 손실 함수 설정
+  loss_function: asymmetric  # 옵션: bce_with_logits, focal, asymmetric, label_smoothing
+
+  # 손실 함수 파라미터
+  loss_params:
+    # Asymmetric Loss 파라미터
+    gamma_neg: 4.0
+    gamma_pos: 1.0
+    clip: 0.05
+
+    # Focal Loss 파라미터 (loss_function이 focal일 때 사용)
+    alpha: 0.25
+    focal_gamma: 0.5
+    pos_lr_multiplier: 5.0
+    neg_lr_multiplier: 1.0
+
+    # Label Smoothing 파라미터 (loss_function이 label_smoothing일 때 사용)
+    smoothing: 0.1
+
+  # 배치 단위 샘플링 설정 (FM 모델과 동일한 방식)
+  use_stratified_sampling: true   # Stratified batch sampling 활성화 여부
+  positive_ratio: 0.15            # 각 배치에서 양성 샘플의 비율 (향상된 버전)
+
+  # 그래디언트 누적 및 메모리 관리
+  gradient_accumulation_steps: 1  # 그래디언트 누적 스텝 수
+  memory_cleanup_frequency: 100   # 메모리 정리 빈도
+
+  # Early stopping 설정
+  early_stopping_patience: 5      # Early stopping patience
+  min_delta: 0.001               # 최소 개선 임계값
+
+  # 시퀀스 처리
+  max_seq_length: 512  # 시퀀스 최대 길이 (데이터 분석 결과에 따라 조정)
+  seq_split_strategy: front_random  # 옵션: front, back, front_back, front_random, back_random
+  seq_split_ratio: 0.7  # front/back 분할 비율 (0.0 ~ 1.0)
+
+  # 출력 설정
+  output_dir: output
+
+# 예측 설정
+predict:
+  batch_size: 256
+  max_seq_length: 128
+  seq_split_strategy: front_random  # 옵션: front, back, front_back, front_random, back_random
+  seq_split_ratio: 0.7  # front/back 분할 비율 (0.0 ~ 1.0)
+  model_path: output/transformer_models
+  n_folds: 3
+  output_dir: output
+
+# 환경 설정
+environment:
+  device: auto  # auto, cpu, cuda
+  num_workers: 2
+  pin_memory: true
+  deterministic: true

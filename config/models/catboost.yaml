@@ -1,0 +1,20 @@
+_target_: models.tree.CatBoostTrainer
+
+params:
+  task_type: GPU
+  loss_function: Logloss
+  simple_ctr: FeatureFreq
+  combinations_ctr: FeatureFreq
+  max_depth: 8
+  max_ctr_complexity: 4
+  learning_rate: 0.01
+  od_type: Iter
+  scale_pos_weight: 51.42546491069111
+  allow_writing_files: False
+
+model_path: res/models/
+results: catboost-10fold-denoise-category-gbdt-seed42
+num_boost_round: 10000
+early_stopping_rounds: 100
+seed: 42
+verbose_eval: 100

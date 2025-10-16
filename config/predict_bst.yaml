@@ -1,0 +1,17 @@
+# BST 모델 예측 설정 파일
+
+# 모델 및 데이터 경로
+model_path: "output/bst_best_model.pth"  # 학습된 모델 파일 경로
+data_path: "input/toss-next-challenge/test.parquet"  # 예측할 데이터 파일 경로
+output_path: "output/bst_predictions.parquet"  # 예측 결과 저장 경로
+
+# 타겟 컬럼 (메트릭 계산용, 없으면 null)
+target_col: null  # "clicked" 또는 null
+
+# 예측 설정
+device: "auto"  # 디바이스 (auto, cpu, cuda)
+batch_size: 256  # 배치 크기
+force_refresh: false  # 캐시를 무시하고 강제 새로고침
+
+# 기타 설정
+seed: 42

@@ -1,0 +1,76 @@
+target: clicked
+seq: seq
+sampling: 0.5
+seed: 42
+path: input/toss-next-challenge/
+encoder_path: res/data/
+train: train_preprocessed
+test: test_preprocessed
+submit: sample_submission
+split_type: stratified
+n_splits: 10
+group: day_of_week
+id: ID
+
+drop_features: [
+  "feat_c_7",
+  "feat_c_1",
+  "feat_c_4",
+  "feat_c_6",
+  "feat_c_5",
+  "day_of_week",
+  "feat_c_8",
+  "feat_c_3",
+  "l_feat_12",
+  "l_feat_7",
+  "l_feat_14",
+  "l_feat_5",
+  "l_feat_9",
+  "l_feat_17",
+  "l_feat_6",
+  "l_feat_11",
+  "l_feat_15",
+]
+
+denoise_steps:
+  feat_a_1: 1.6
+  feat_a_2: 0.6
+  feat_a_3: 3.4
+  feat_a_4: 19.6
+  feat_a_6: 1.9
+  feat_a_7: 4.1
+  feat_a_8: 7.0
+  feat_a_9: 10
+  feat_a_10: 8.5
+  feat_a_11: 4.2
+  feat_a_12: 1.4
+  feat_a_15: 6.9
+  feat_a_17: 0.4
+
+sparse_features: [
+  "feat_a_1",
+  "feat_a_2",
+  "feat_a_3",
+  "feat_a_4",
+  "feat_a_6",
+  "feat_a_7",
+  "feat_a_8",
+  "feat_a_9",
+  "feat_a_10",
+  "feat_a_11",
+  "feat_a_12",
+  "feat_a_17",
+  "feat_a_16",
+  "feat_a_18",
+]
+
+skewed_features: [
+    "l_feat_8",
+    "l_feat_10",
+    "l_feat_11",
+    "l_feat_12",
+    "l_feat_13",
+    "l_feat_14",
+    "l_feat_15",
+    "l_feat_16",
+]
