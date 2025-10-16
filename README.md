@@ -91,5 +91,5 @@ Place the following files inside the `input/toss-next-challenge/` directory:
     ```
 
 3. The final submission file will be generated in the output folder as
-tree4-dcn2-mha-concatmod-sigmoid-ensemble.csv.
+`tree4-dcn2-mha-concatmod-sigmoid-ensemble.csv`.
 Please use this CSV file for evaluation.
