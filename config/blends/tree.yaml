@@ -1,0 +1,12 @@
+name: dart3-xgb3-sigmoid-ensemble
+
+preds:
+- 10fold-lightgbm-denoise-category-dart-seed42
+- 10fold-lightgbm-denoise-category-dart-seed919
+- 10fold-lightgbm-denoise-category-dart-seed1119
+- 10fold-xgboost-denoise-count-gbtree-seed42
+- 10fold-xgboost-denoise-count-gbtree-seed919
+- 10fold-xgboost-denoise-count-gbtree-seed1119
+
+weights: null
+method: sigmoid

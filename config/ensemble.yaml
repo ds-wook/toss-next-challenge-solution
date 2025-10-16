@@ -1,0 +1,18 @@
+defaults:
+  - _self_
+  - data: dataset
+  - store: features
+  - models: lightgbm
+  - blends: total
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+output:
+  path: output
+  submission: sample_submission
+  name: ${blends.name}

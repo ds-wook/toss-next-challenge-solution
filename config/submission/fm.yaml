@@ -1,0 +1,3 @@
+model_names:
+  - 5fold-dcn_v2-mha-concat
+  - 5fold-dcn-mha-concat

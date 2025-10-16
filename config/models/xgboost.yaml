@@ -1,0 +1,23 @@
+_target_: models.tree.XGBoostTrainer
+
+params:
+  eta: 0.01
+  subsample: 0.8
+  colsample_bytree: 0.8
+  max_depth: 8        # 트리 깊이 늘려서 더 분할 허용
+  min_child_weight: 0.1 # 분할을 더 쉽게 허용
+  alpha: 0.01
+  lambda: 0.1
+  scale_pos_weight: 51.42546491069111
+  tree_method: hist
+  objective: binary:logistic
+  booster: gbtree
+  eval_metric: logloss
+  n_jobs: -1
+
+model_path: res/models/
+results: 10fold-xgboost-denoise-count-gbtree-seed1119
+early_stopping_rounds: 100
+num_boost_round: 20000
+verbose_eval: 100
+seed: 1119

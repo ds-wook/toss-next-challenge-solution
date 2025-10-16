@@ -1,0 +1,12 @@
+defaults:
+  - _self_
+  - data: dataset
+  - store: features
+  - models: lightgbm
+  - override hydra/hydra_logging: default
+  - override hydra/job_logging: default
+
+hydra:
+  run:
+    dir: ./res/log/${models.results}/${now:%Y-%m-%d_%H-%M-%S}  # 실행별 디렉토리 자동 생성
+  output_subdir: null

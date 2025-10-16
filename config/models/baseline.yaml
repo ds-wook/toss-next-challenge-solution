@@ -1,0 +1,19 @@
+_target_: models.baseline.BaselineTrainer
+
+model_path: output
+results: baseline_model
+params:
+  d_features: 100  # Will be set dynamically
+  lstm_hidden: 64
+  hidden_units: [256, 128]
+  dropout: 0.2
+  device: cuda
+  model_type: baseline
+  learning_rate: 0.001
+early_stopping_rounds: 10
+num_boost_round: 50
+verbose_eval: 5
+seed: 42
+features: []  # Will be set dynamically
+cat_features: []  # Will be set dynamically
+n_splits: 5

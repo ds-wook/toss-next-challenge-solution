@@ -1,0 +1,215 @@
+common:
+  batch_size: 4096 # when setting use_seq_feature=True, reduce batch_size to 512
+  learning_rate: 0.0001
+  regularization: 0.0005
+  epochs: 70
+  embedding_dim: 32
+  patience: 20
+  num_workers: 1
+
+
+data:
+  target: clicked
+  seq: seq
+  id: ID
+  sampling: 0.1
+  seed: 42
+  path: input/toss-next-challenge/
+  train: train_preprocessed
+  test: test_preprocessed
+  submit: sample_submission
+  n_splits: 5
+  split_type: stratified
+  group: day_of_week
+  fold_idx_for_fm: -1 # to be updated in command line args
+  use_seq_feature: false # to be updated in command line args
+  min_id_in_seq: -1 # to be set in data loader when use_seq_feature=True
+  max_id_in_seq: -1 # to be set in data loader when use_seq_feature=True
+  max_seq_length: 512
+  recent_ratio: 0.7
+  result_path: "" # directory to save trained model and train preprocessing objects
+  num_features: [
+    'l_feat_5',
+    'l_feat_11',
+    'l_feat_12',
+    'l_feat_15',
+    'l_feat_25',
+    'feat_e_2',
+    'feat_e_7',
+    'feat_e_8',
+    'feat_e_9',
+    'feat_e_10',
+    'feat_d_4',
+    'feat_c_2',
+    'feat_b_1',
+    'feat_b_2',
+    'feat_b_3',
+    'feat_b_5',
+    'feat_b_6',
+    'feat_a_14',
+    'history_a_1',
+    'history_a_4',
+    'history_a_6',
+    'history_a_7',
+    'history_b_1',
+    'history_b_2',
+    'history_b_3',
+    'history_b_4',
+    'history_b_5',
+    'history_b_6',
+    'history_b_7',
+    'history_b_8',
+    'history_b_9',
+    'history_b_10',
+    'history_b_11',
+    'history_b_12',
+    'history_b_13',
+    'history_b_14',
+    'history_b_15',
+    'history_b_16',
+    'history_b_17',
+    'history_b_18',
+    'history_b_19',
+    'history_b_20',
+    'history_b_21',
+    'history_b_22',
+    'history_b_23',
+    'history_b_24',
+    'history_b_25',
+    'history_b_26',
+    'history_b_27',
+    'history_b_28',
+    'history_b_29',
+    'history_b_30'
+  ]
+  cat_features: [
+    'gender',
+    'age_group',
+    'inventory_id',
+    'day_of_week',
+    'hour',
+    'l_feat_1',
+    'l_feat_2',
+    'l_feat_3',
+    'l_feat_4',
+    'l_feat_6',
+    'l_feat_7',
+    'l_feat_8',
+    'l_feat_9',
+    'l_feat_10',
+    'l_feat_13',
+    'l_feat_16',
+    'l_feat_17',
+    'l_feat_18',
+    'l_feat_19',
+    'l_feat_20',
+    'l_feat_21',
+    'l_feat_22',
+    'l_feat_23',
+    'l_feat_24',
+    'l_feat_26',
+    'l_feat_27',
+    'feat_e_1',
+    'feat_e_3',
+    'feat_e_4',
+    'feat_e_5',
+    'feat_e_6',
+    'feat_d_1',
+    'feat_d_2',
+    'feat_d_3',
+    'feat_d_5',
+    'feat_d_6',
+    'feat_c_1',
+    'feat_c_3',
+    'feat_c_4',
+    'feat_c_5',
+    'feat_c_6',
+    'feat_c_7',
+    'feat_c_8',
+    'feat_b_4',
+    'feat_a_1',
+    'feat_a_2',
+    'feat_a_3',
+    'feat_a_4',
+    'feat_a_5',
+    'feat_a_6',
+    'feat_a_7',
+    'feat_a_8',
+    'feat_a_9',
+    'feat_a_10',
+    'feat_a_11',
+    'feat_a_12',
+    'feat_a_13',
+    'feat_a_15',
+    'feat_a_16',
+    'feat_a_17',
+    'feat_a_18',
+    'history_a_2',
+    'history_a_3',
+    'history_a_5',
+    'l_feat_14'
+  ]
+  drop_features: [
+    "feat_c_7",
+    "feat_c_1",
+    "feat_c_4",
+    "feat_c_6",
+    "feat_c_5",
+    "day_of_week",
+    "feat_c_8",
+    "feat_c_3",
+    "l_feat_12",
+    "l_feat_7",
+    "l_feat_14",
+    "l_feat_5",
+    "l_feat_9",
+    "l_feat_17",
+    "l_feat_6",
+    "l_feat_11",
+    "l_feat_15",
+  ]
+  engineered_features: [
+    "seq_len",
+    "seq_unique",
+    "diversity_ratio",
+    "entropy",
+    "seq_last",
+  ]
+
+
+loss:
+  name: bce_with_logits
+  bce:
+    pos_weight: 64
+  focal:
+    gamma: 1.5
+    pos_lr_multiplier: 10
+    neg_lr_multiplier: 1
+
+
+model:
+  seq:
+    d_model: 128
+    nhead: 8
+    use_causal_mask: false
+  deepfm:
+    mlp_dims: [128, 64]
+    cin_layer_dims: [128, 64]
+  dcn:
+    num_cross_layers: 2
+    deep_layers: [256, 128, 64]
+  dcn_v2:
+    low_rank: 32
+    num_experts: 1
+    num_cross_layers: 2
+    deep_layers: [256, 128, 64]
+    structure: "stacked"
+  fibinet:
+    reduction_ratio: 3
+
+optim:
+  fm_lr_multiplier: 1
+  deep_lr_multiplier: 10
+  cin_lr_multiplier: 1
+  encoder_lr_multiplier: 1
+  lr_eta_min: 0.00001

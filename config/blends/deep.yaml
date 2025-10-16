@@ -1,0 +1,9 @@
+name: deepfm-ffm-dcn-sigmoid-ensemble
+
+preds:
+- dcn-5fold-bce-posw64-0.0001-featsel-reg0.0005-emb32
+- deepfm-bce-posw64-lr0.0001-featsel-reg0.0005-emb32-mlp128_64-lrmulti10-mha-fusion
+- ffm-5fold-bce-posw64-0.0001-featsel-reg0.0005-emb32
+
+weights: null
+method: sigmoid

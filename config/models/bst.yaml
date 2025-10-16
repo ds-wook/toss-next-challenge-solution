@@ -1,0 +1,53 @@
+# BST 모델 설정
+
+# 모델 하이퍼파라미터
+model:
+  max_seq_len: 200          # 최대 시퀀스 길이
+  d_model: 64             # 모델 차원 (임베딩 차원)
+  n_heads: 8              # 어텐션 헤드 수
+  n_layers: 1             # 트랜스포머 레이어 수
+  d_ff: 256               # 피드포워드 네트워크 차원
+  dropout: 0.2            # 드롭아웃 비율
+  mlp_dims: [1024, 512, 256]  # MLP 레이어 차원들
+
+# 학습 설정
+training:
+  learning_rate: 0.01     # 학습률
+  weight_decay: 1e-5      # 가중치 감쇠
+  batch_size: 256         # 배치 크기
+  num_epochs: 10          # 에포크 수
+  early_stopping_patience: 5  # 조기 종료 patience
+  num_workers: 4          # 데이터 로더 워커 수
+
+# 손실 함수 설정
+loss:
+  type: "focal"           # focal 또는 bce_with_logits
+  alpha: 0.98            # FocalLoss의 alpha (양성 클래스 가중치)
+  gamma: 1.5             # FocalLoss의 gamma (어려운 샘플 집중도)
+  pos_weight: 10.0       # BCEWithLogitsLoss의 pos_weight
+
+
+# 데이터 설정
+data:
+  min_item_freq: 5        # 최소 아이템 빈도
+  test_size: 0.2          # 검증 데이터 비율
+  random_seed: 42         # 랜덤 시드
+  chunk_size: 500000     # 데이터 로딩 청크 크기
+
+# 경로 설정
+paths:
+  data_dir: "input/toss-next-challenge"
+  output_dir: "output"
+  model_name: "bst_model"
+  cache_dir: "cache"
+
+# Wandb 설정
+wandb:
+  project: "toss-bst"
+  entity: null
+  tags: ["bst", "transformer", "ctr-prediction"]
+
+# 기타 설정
+device: "auto"           # 디바이스 (auto, cpu, cuda)
+force_refresh: false     # 캐시를 무시하고 강제 새로고침
+max_memory_gb: 8.0       # 최대 메모리 사용량 (GB)
