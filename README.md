@@ -73,6 +73,19 @@ $ poetry lock
 
 ![Ensemble](https://github.com/user-attachments/assets/6bba8d01-c5e1-4744-a7d0-0ebd6d38ffcf)
 
+### Boosting
+**LightGBM DART**
+
+[Dart](https://arxiv.org/abs/1505.01866) introduces dropout into gradient boosting, randomly dropping trees during training to prevent overfitting and improve generalization.
+
+We found DART particularly effective for this task because:
+- It handles sparse and high-cardinality categorical features efficiently.
+- It achieves stable validation performance across folds.
+- It generalizes well under data drift and imbalanced conditions.
+
+While we also experimented with XGBoost, CatBoost, and Deep Cross Network (DCN),DART consistently served as the backbone model and delivered the highest overall reliability.
+Final submissions were built around DART and refined through ensemble blending with complementary models.
+
 ### Deep Cross Network Architecture
 
 **Seq-aware DCN**
@@ -87,15 +100,16 @@ $ poetry lock
 
 ![Seq-aware DCN V2](https://github.com/user-attachments/assets/4ae3802d-1e89-4763-892f-830a9634e8be)
 
+
 ## How to Run Our Solution
 ### 1. Prepare the input data
 Place the following files inside the `input/toss-next-challenge/` directory:
 ```
 ├── input
-│   └── toss-next-challenge
-│       ├── sample_submission.csv
-│       ├── test.parquet
-│       └── train.parquet
+   └── toss-next-challenge
+       ├── sample_submission.csv
+       ├── test.parquet
+       └── train.parquet
 ```
 
 ### 2. Run the following script:
