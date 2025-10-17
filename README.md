@@ -67,7 +67,27 @@ Then, update `poetry.lock` to ensure that repository members share same environm
 $ poetry lock
 ```
 
-## Run
+## Architecture of Our Solution
+
+### Ensemble Architecture
+
+![Ensemble](https://github.com/user-attachments/assets/6bba8d01-c5e1-4744-a7d0-0ebd6d38ffcf)
+
+### Deep Cross Network Architecture
+
+**Seq-aware DCN**
+
+[DCN](https://arxiv.org/abs/1708.05123) with MHA encoded seq feature.
+
+![Seq-aware DCN](https://github.com/user-attachments/assets/44bfb186-313c-401c-80f5-d1a0eb6f9c37)
+
+**Seq-aware DCN V2**
+
+[DCN V2](https://arxiv.org/abs/2008.13535) with MHA encoded seq feature.
+
+![Seq-aware DCN V2](https://github.com/user-attachments/assets/4ae3802d-1e89-4763-892f-830a9634e8be)
+
+## How to Run Our Solution
 ### 1. Prepare the input data
 Place the following files inside the `input/toss-next-challenge/` directory:
 ```
@@ -78,7 +98,7 @@ Place the following files inside the `input/toss-next-challenge/` directory:
 │       └── train.parquet
 ```
 
-2. Run the following script:
+### 2. Run the following script:
 - train
     ```shell
     $ sh scripts/train.sh
@@ -90,6 +110,6 @@ Place the following files inside the `input/toss-next-challenge/` directory:
     $ sh scripts/inference.sh
     ```
 
-3. The final submission file will be generated in the output folder as
+### 3. The final submission file will be generated in the output folder as
 `tree4-dcn2-mha-concatmod-sigmoid-ensemble.csv`.
 Please use this CSV file for evaluation.
