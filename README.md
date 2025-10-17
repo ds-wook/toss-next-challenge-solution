@@ -67,7 +67,7 @@ Then, update `poetry.lock` to ensure that repository members share same environm
 $ poetry lock
 ```
 
-## Run
+## How to Run Our Solution
 ### 1. Prepare the input data
 Place the following files inside the `input/toss-next-challenge/` directory:
 ```
@@ -78,7 +78,7 @@ Place the following files inside the `input/toss-next-challenge/` directory:
 │       └── train.parquet
 ```
 
-2. Run the following script:
+### 2. Run the following script:
 - train
     ```shell
     $ sh scripts/train.sh
@@ -90,6 +90,6 @@ Place the following files inside the `input/toss-next-challenge/` directory:
     $ sh scripts/inference.sh
     ```
 
-3. The final submission file will be generated in the output folder as
+### 3. The final submission file will be generated in the output folder as
 `tree4-dcn2-mha-concatmod-sigmoid-ensemble.csv`.
 Please use this CSV file for evaluation.
