@@ -126,9 +126,9 @@ def main() -> None:
 
         # setup model
         model_path = (
-            f"models.fm.{args.model}_seq"
+            f"models.fm.{args.model}.{args.model}_seq"
             if args.use_seq_feature
-            else f"models.fm.{args.model}"
+            else f"models.fm.{args.model}.{args.model}"
         )
         model_module = importlib.import_module(model_path).Model
         model = model_module(
