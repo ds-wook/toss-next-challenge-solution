@@ -1,13 +1,13 @@
-from typing import List
+from typing import List, Optional
 
 import torch
 import torch.nn as nn
 from torch import Tensor
-from models.fm.lr import Model as LogisticRegression
+from models.fm.base import Base
 from layers import SENetBlock, BilinearInteraction
 
 
-class Model(LogisticRegression):
+class Model(Base):
     """
     FiBiNet: Feature Importance and Bilinear Feature Interaction Network
 
@@ -19,14 +19,17 @@ class Model(LogisticRegression):
 
     def __init__(
         self,
-        categorical_field_dims: List[int] = None,
+        categorical_field_dims: Optional[List[int]] = None,
         numerical_field_count: int = 0,
         embed_dim: int = 10,
         reduction_ratio: float = 3,
         **kwargs,
     ):
         # Initialize parent class (gets bias + first-order interactions)
-        super(Model, self).__init__(categorical_field_dims, numerical_field_count)
+        super().__init__(
+            categorical_field_dims=categorical_field_dims,
+            numerical_field_count=numerical_field_count,
+        )
 
         self.embed_dim = embed_dim
         self.reduction_ratio = reduction_ratio
@@ -57,17 +60,6 @@ class Model(LogisticRegression):
 
         self._init_embedding_weights()
 
-    def _setup_categorical_embeddings(self):
-        """Setup categorical embeddings"""
-        total_vocab_size = self.field_offsets[-1]
-        self.categorical_embeddings = nn.Embedding(total_vocab_size, self.embed_dim)
-
-    def _setup_numerical_embeddings(self):
-        """Setup numerical embeddings"""
-        self.numerical_embeddings = nn.Parameter(
-            torch.randn(self.numerical_field_count, self.embed_dim)
-        )
-
     def _init_embedding_weights(self):
         """Initialize embedding weights"""
         if hasattr(self, "categorical_embeddings"):
@@ -80,8 +72,11 @@ class Model(LogisticRegression):
             nn.init.xavier_normal_(self.bilinear.bilinear_weights, gain=1.0)
 
     def forward(
-        self, numerical_x: Tensor = None, categorical_x: Tensor = None, **kwargs
-    ):
+        self,
+        numerical_x: Optional[Tensor] = None,
+        categorical_x: Optional[Tensor] = None,
+        **kwargs,
+    ) -> Tensor:
         """
         Forward pass of FiBiNet
 
@@ -111,7 +106,9 @@ class Model(LogisticRegression):
 
         return output.unsqueeze(-1)  # (batch_size, 1)
 
-    def _fibinet_interactions(self, numerical_x: Tensor, categorical_x: Tensor):
+    def _fibinet_interactions(
+        self, numerical_x: Optional[Tensor], categorical_x: Optional[Tensor]
+    ) -> Tensor:
         """Compute FiBiNet interactions: SENET + Bilinear"""
         batch_size = (
             categorical_x.size(0) if categorical_x is not None else numerical_x.size(0)
