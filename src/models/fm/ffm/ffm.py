@@ -1,10 +1,10 @@
 import torch
-import torch.nn as nn
 from torch import Tensor
-from models.fm.lr import Model as LogisticRegression
+from typing import Optional, List
+from models.fm.ffm.ffm_base import FFMBase
 
 
-class Model(LogisticRegression):
+class Model(FFMBase):
     """
     Field-aware Factorization Machine inheriting from LogisticRegression
 
@@ -15,58 +15,24 @@ class Model(LogisticRegression):
 
     def __init__(
         self,
-        categorical_field_dims=None,
-        numerical_field_count=0,
-        embed_dim=10,
+        categorical_field_dims: Optional[List[int]] = None,
+        numerical_field_count: int = 0,
+        embed_dim: int = 10,
         **kwargs,
     ):
         # Initialize parent class (gets bias + first-order interactions)
-        super(Model, self).__init__(categorical_field_dims, numerical_field_count)
-
-        self.embed_dim = embed_dim
-        self.total_field_count = self.num_categorical + self.numerical_field_count
-
-        # Add field-aware embeddings for second-order interactions
-        if self.num_categorical > 0:
-            self._setup_categorical_embeddings()
-
-        if self.numerical_field_count > 0:
-            self._setup_numerical_embeddings()
-
-        self._init_embedding_weights()
-
-    def _setup_categorical_embeddings(self):
-        """Setup categorical field-aware embeddings"""
-        # Each categorical feature has embeddings for each field it can interact with
-        total_vocab_size = self.field_offsets[-1]
-        self.categorical_embeddings = nn.ModuleList(
-            [
-                nn.Embedding(total_vocab_size, self.embed_dim)
-                for _ in range(self.total_field_count)
-            ]
+        super().__init__(
+            categorical_field_dims=categorical_field_dims,
+            numerical_field_count=numerical_field_count,
+            embed_dim=embed_dim,
         )
-
-    def _setup_numerical_embeddings(self):
-        """Setup numerical field-aware embeddings"""
-        # Each numerical feature has embeddings for each field it can interact with
-        self.numerical_embeddings = nn.Parameter(
-            torch.randn(
-                self.numerical_field_count, self.total_field_count, self.embed_dim
-            )
-        )
-
-    def _init_embedding_weights(self):
-        """Initialize field-aware embedding weights"""
-        if hasattr(self, "categorical_embeddings"):
-            for embedding in self.categorical_embeddings:
-                nn.init.xavier_normal_(embedding.weight, gain=1.0)
-
-        if hasattr(self, "numerical_embeddings"):
-            nn.init.xavier_normal_(self.numerical_embeddings, gain=1.0)
 
     def forward(
-        self, numerical_x: Tensor = None, categorical_x: Tensor = None, **kwargs
-    ):
+        self,
+        numerical_x: Optional[Tensor] = None,
+        categorical_x: Optional[Tensor] = None,
+        **kwargs,
+    ) -> Tensor:
         """
         Forward pass of FFM: LR + field-aware second-order interactions
 
@@ -94,7 +60,9 @@ class Model(LogisticRegression):
 
         return output.unsqueeze(-1)  # (batch_size, 1)
 
-    def _field_aware_interactions(self, numerical_x: Tensor, categorical_x: Tensor):
+    def _field_aware_interactions(
+        self, numerical_x: Optional[Tensor], categorical_x: Optional[Tensor]
+    ) -> Tensor:
         """
         Compute field-aware second-order interactions: ΣᵢΣⱼ>ⱼ⟨vᵢ,fⱼ,vⱼ,fᵢ⟩xᵢxⱼ
         Using torch.einsum for efficient computation.
@@ -172,53 +140,3 @@ class Model(LogisticRegression):
         interaction_sum = torch.clamp(interaction_sum, -100, 100)
 
         return interaction_sum
-
-    def _get_embedding(
-        self,
-        feature_idx: Tensor,
-        field_idx: Tensor,
-        categorical_x: Tensor,
-        numerical_x: Tensor,
-    ):
-        """
-        Get embedding for feature_idx when interacting with field_idx
-
-        Args:
-            feature_idx: Index of the feature (0 to total_field_count-1)
-            field_idx: Index of the field it's interacting with
-            categorical_x: Categorical input
-            numerical_x: Numerical input
-
-        Returns:
-            Embedding tensor (batch_size, embed_dim)
-        """
-        batch_size = (
-            categorical_x.size(0) if categorical_x is not None else numerical_x.size(0)
-        )
-
-        # Categorical feature
-        if feature_idx < self.num_categorical:
-            if categorical_x is not None:
-                global_idx = (
-                    categorical_x[:, feature_idx]
-                    + self.field_offsets_tensor[feature_idx]
-                )
-                return self.categorical_embeddings[field_idx](global_idx)
-            else:
-                device = next(self.parameters()).device
-                return torch.zeros(batch_size, self.embed_dim, device=device)
-
-        # Numerical feature
-        else:
-            num_feature_idx = feature_idx - self.num_categorical
-            if numerical_x is not None:
-                return (
-                    self.numerical_embeddings[num_feature_idx, field_idx]
-                    .unsqueeze(0)
-                    .expand(batch_size, -1)
-                )
-            else:
-                device = next(self.parameters()).device
-                return torch.zeros(batch_size, self.embed_dim, device=device)
-                device = next(self.parameters()).device
-                return torch.zeros(batch_size, self.embed_dim, device=device)
