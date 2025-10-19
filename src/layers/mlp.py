@@ -21,3 +21,33 @@ class FusionNetwork(nn.Module):
         hadamard_component = mlp_emb * seq_emb
         combined_component = torch.cat([mlp_emb, hadamard_component, seq_emb], dim=1)
         return self.fusion(combined_component)
+
+
+class MultiLayerPerceptron(nn.Module):
+    def __init__(
+        self,
+        input_dim: int,
+        layers: list,
+        dropout_rate: float = 0.2,
+        only_linear_on_last_layer: bool = False,
+    ):
+        super().__init__()
+
+        mlp_layers = []
+        for hidden_dim in layers[:-1]:
+            mlp_layers.append(nn.Linear(input_dim, hidden_dim))
+            mlp_layers.append(nn.ReLU())
+            mlp_layers.append(nn.Dropout(dropout_rate))
+            input_dim = hidden_dim
+
+        if only_linear_on_last_layer:
+            mlp_layers.append(nn.Linear(input_dim, layers[-1]))
+        else:
+            mlp_layers.append(nn.Linear(input_dim, layers[-1]))
+            mlp_layers.append(nn.ReLU())
+            mlp_layers.append(nn.Dropout(dropout_rate))
+
+        self.mlp = nn.Sequential(*mlp_layers)
+
+    def forward(self, x: Tensor):
+        return self.mlp(x)
