@@ -133,10 +133,6 @@ Final submissions were built around DART and refined through ensemble blending w
 | CatBoost      | [config/models/catboost.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/catboost.yaml) |
 | All FM Models | [config/models/fm.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/fm.yaml) |
 
-### How to Train Implemented Models
-
-TBD
-
 
 ## How to Run Our Solution
 ### 1. Prepare the input data
