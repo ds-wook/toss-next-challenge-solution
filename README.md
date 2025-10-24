@@ -101,6 +101,39 @@ Final submissions were built around DART and refined through ensemble blending w
 ![Seq-aware DCN V2](https://github.com/user-attachments/assets/4ae3802d-1e89-4763-892f-830a9634e8be)
 
 
+## Implemented models
+
+| Model           |CV Score| Public LB | Private LB | Chosen for Ensemble |
+|-----------------|--------|-----------|------------|---------------------|
+| Sigmoid Ensemble| - | **0.35126** | **0.35073** | FINAL |
+| LightGBM        | 0.35501 | 0.35024 | 0.34960 | O |
+| XGBoost         | 0.35489 | 0.34788 |	0.34757| O |
+| dcn_v2_seq      | 0.35375 | 0.34471 | 0.34452 | O |
+| dcn_seq         | 0.35345 | 0.34645 | 0.34602 | O |
+| CatBoost        | 0.34348 | 0.34804  | 0.34790  | X |
+| dcn_v2          | 0.35395 | 0.34512  | NA  | X |
+| dcn             | | NA  | NA  | X |
+| ffm_seq         | | NA  | NA  | X |
+| ffm             | | NA  | NA  | X |
+| xdeepfm_seq     | | NA  | NA  | X |
+| xdeepfm         | 0.34861 | 0.34321  | NA  | X |
+| deepfm_seq      | 0.35219 | 0.34497  | NA  | X |
+| deepfm          | | NA  | NA  | X |
+| fm_seq          | | NA  | NA  | X |
+| fm              | | NA  | NA  | X |
+| fibinet         | | NA  | NA  | X |
+
+
+### Experiment Configurations
+
+| Model         | Config Path |
+|---------------|-------------|
+| LightGBM      | [config/models/lightgbm.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/lightgbm.yaml) |
+| XGBoost       | [config/models/xgboost.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/xgboost.yaml) |
+| CatBoost      | [config/models/catboost.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/catboost.yaml) |
+| All FM Models | [config/models/fm.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/fm.yaml) |
+
+
 ## How to Run Our Solution
 ### 1. Prepare the input data
 Place the following files inside the `input/toss-next-challenge/` directory:
@@ -125,5 +158,5 @@ Place the following files inside the `input/toss-next-challenge/` directory:
     ```
 
 ### 3. The final submission file will be generated in the output folder as
-`tree4-dcn2-mha-concatmod-sigmoid-ensemble.csv`.
-Please use this CSV file for evaluation.
+- `tree4-dcn2-mha-concatmod-sigmoid-ensemble.csv` is final submission.
+- Please use this CSV file for evaluation.
