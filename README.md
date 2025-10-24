@@ -116,7 +116,7 @@ Final submissions were built around DART and refined through ensemble blending w
 | ffm_seq         | | NA  | NA  | X |
 | ffm             | | NA  | NA  | X |
 | xdeepfm_seq     | | NA  | NA  | X |
-| xdeepfm         | | NA  | NA  | X |
+| xdeepfm         | 0.34861 | 0.34321  | NA  | X |
 | deepfm_seq      | 0.35219 | 0.34497  | NA  | X |
 | deepfm          | | NA  | NA  | X |
 | fm_seq          | | NA  | NA  | X |
