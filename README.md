@@ -101,6 +101,44 @@ Final submissions were built around DART and refined through ensemble blending w
 ![Seq-aware DCN V2](https://github.com/user-attachments/assets/4ae3802d-1e89-4763-892f-830a9634e8be)
 
 
+## Implemented models
+
+| Model           | Public LB | Private LB | Chosen for Ensemble |
+|-----------------|-----------|------------|---------------------|
+| Sigmoid Ensemble| TBD | TBD | NA|
+| LightGBM        | TBD | TBD | O |
+| XGBoost         | TBD | TBD | O |
+| dcn_v2_seq      | TBD | TBD | O |
+| dcn_seq         | TBD | TBD | O |
+| CatBoost        | NA  | NA  | X |
+| dcn_v2          | NA  | NA  | X |
+| dcn             | NA  | NA  | X |
+| ffm_seq         | NA  | NA  | X |
+| ffm             | NA  | NA  | X |
+| xdeepfm_seq     | NA  | NA  | X |
+| xdeepfm         | NA  | NA  | X |
+| deepfm_seq      | NA  | NA  | X |
+| deepfm          | NA  | NA  | X |
+| fm_seq          | NA  | NA  | X |
+| fm              | NA  | NA  | X |
+| fibinet         | NA  | NA  | X |
+| lr              | NA  | NA  | X |
+
+
+### Experiment Configurations
+
+| Model         | Config Path |
+|---------------|-------------|
+| LightGBM      | [config/models/lightgbm.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/lightgbm.yaml) |
+| XGBoost       | [config/models/xgboost.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/xgboost.yaml) |
+| CatBoost      | [config/models/catboost.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/catboost.yaml) |
+| All FM Models | [config/models/fm.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/fm.yaml) |
+
+### How to Train Implemented Models
+
+TBD
+
+
 ## How to Run Our Solution
 ### 1. Prepare the input data
 Place the following files inside the `input/toss-next-challenge/` directory:
