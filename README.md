@@ -128,10 +128,10 @@ Final submissions were built around DART and refined through ensemble blending w
 
 | Model         | Config Path |
 |---------------|-------------|
-| LightGBM      | [config/models/lightgbm.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/lightgbm.yaml) |
-| XGBoost       | [config/models/xgboost.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/xgboost.yaml) |
-| CatBoost      | [config/models/catboost.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/catboost.yaml) |
-| All FM Models | [config/models/fm.yaml](https://github.com/ds-wook/toss-next-challenge/blob/main/config/models/fm.yaml) |
+| LightGBM      | [config/models/lightgbm.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/lightgbm.yaml) |
+| XGBoost       | [config/models/xgboost.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/xgboost.yaml) |
+| CatBoost      | [config/models/catboost.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/catboost.yaml) |
+| All FM Models | [config/models/fm.yaml](https://github.com/ds-wook/toss-next-challenge-solution/blob/main/config/models/fm.yaml) |
 
 
 ## How to Run Our Solution
