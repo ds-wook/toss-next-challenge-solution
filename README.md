@@ -103,26 +103,26 @@ Final submissions were built around DART and refined through ensemble blending w
 
 ## Implemented models
 
-| Model           | Public LB | Private LB | Chosen for Ensemble |
-|-----------------|-----------|------------|---------------------|
-| Sigmoid Ensemble| TBD | TBD | NA|
-| LightGBM        | TBD | TBD | O |
-| XGBoost         | TBD | TBD | O |
-| dcn_v2_seq      | TBD | TBD | O |
-| dcn_seq         | TBD | TBD | O |
-| CatBoost        | NA  | NA  | X |
-| dcn_v2          | NA  | NA  | X |
-| dcn             | NA  | NA  | X |
-| ffm_seq         | NA  | NA  | X |
-| ffm             | NA  | NA  | X |
-| xdeepfm_seq     | NA  | NA  | X |
-| xdeepfm         | NA  | NA  | X |
-| deepfm_seq      | NA  | NA  | X |
-| deepfm          | NA  | NA  | X |
-| fm_seq          | NA  | NA  | X |
-| fm              | NA  | NA  | X |
-| fibinet         | NA  | NA  | X |
-| lr              | NA  | NA  | X |
+| Model           |CV Score| Public LB | Private LB | Chosen for Ensemble |
+|-----------------|--------|-----------|------------|---------------------|
+| Sigmoid Ensemble| NA | TBD | TBD | FINAL |
+| LightGBM        | 0.35501 | 0.35024 | 0.34960 | O |
+| XGBoost         | 0.35489 | 0.34788 |	0.34757| O |
+| dcn_v2_seq      | 0.35375 | 0.34471 | 0.34452 | O |
+| dcn_seq         | 0.35345 | 0.34645 | 0.34602 | O |
+| CatBoost        | 0.34348 | 0.34804  | 0.34790  | X |
+| dcn_v2          | | NA  | NA  | X |
+| dcn             | | NA  | NA  | X |
+| ffm_seq         | | NA  | NA  | X |
+| ffm             | | NA  | NA  | X |
+| xdeepfm_seq     | | NA  | NA  | X |
+| xdeepfm         | | NA  | NA  | X |
+| deepfm_seq      | | NA  | NA  | X |
+| deepfm          | | NA  | NA  | X |
+| fm_seq          | | NA  | NA  | X |
+| fm              | | NA  | NA  | X |
+| fibinet         | | NA  | NA  | X |
+| lr              | | NA  | NA  | X |
 
 
 ### Experiment Configurations
