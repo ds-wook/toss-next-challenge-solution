@@ -105,7 +105,7 @@ Final submissions were built around DART and refined through ensemble blending w
 
 | Model           |CV Score| Public LB | Private LB | Chosen for Ensemble |
 |-----------------|--------|-----------|------------|---------------------|
-| Sigmoid Ensemble| NA | TBD | TBD | FINAL |
+| Sigmoid Ensemble| - | **0.35126** | **0.35073** | FINAL |
 | LightGBM        | 0.35501 | 0.35024 | 0.34960 | O |
 | XGBoost         | 0.35489 | 0.34788 |	0.34757| O |
 | dcn_v2_seq      | 0.35375 | 0.34471 | 0.34452 | O |
@@ -122,7 +122,6 @@ Final submissions were built around DART and refined through ensemble blending w
 | fm_seq          | | NA  | NA  | X |
 | fm              | | NA  | NA  | X |
 | fibinet         | | NA  | NA  | X |
-| lr              | | NA  | NA  | X |
 
 
 ### Experiment Configurations
