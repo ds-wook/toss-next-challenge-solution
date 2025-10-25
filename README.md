@@ -112,7 +112,7 @@ Final submissions were built around DART and refined through ensemble blending w
 | dcn_seq         | 0.35345 | 0.34645 | 0.34602 | O |
 | CatBoost        | 0.34348 | 0.34804  | 0.34790  | X |
 | dcn_v2          | 0.35395 | 0.34512  | NA  | X |
-| dcn             | | NA  | NA  | X |
+| dcn             | | 0.34709  | 0.346708  | X |
 | ffm_seq         | | NA  | NA  | X |
 | ffm             | | NA  | NA  | X |
 | xdeepfm_seq     | | NA  | NA  | X |
