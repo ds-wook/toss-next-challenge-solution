@@ -1,7 +1,7 @@
 _target_: models.tree.LightGBMTrainer
 
 params:
-  boosting_type: dart
+  boosting_type: gbdt
   data_sample_strategy: bagging
   objective: binary
   metric: competition_score
